@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Alivio HTML project</title>
+		<!-- Reset -->
+		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/base.css" />
+		<!-- Blocks -->
+		<link rel="stylesheet" href="./css/blocks/btn.css" />
+		<link rel="stylesheet" href="./css/blocks/header.css" />
+		<link rel="stylesheet" href="./css/blocks/home.css" />
+		<link rel="stylesheet" href="./css/blocks/how-it-works.css" />
+		<link rel="stylesheet" href="./css/blocks/story.css" />
+		<link rel="stylesheet" href="./css/blocks/product.css" />
+		<link rel="stylesheet" href="./css/blocks/card.css" />
+		<link rel="stylesheet" href="./css/blocks/avatar.css" />
+		<link rel="stylesheet" href="./css/blocks/footer.css" />
+		<link rel="stylesheet" href="./css/blocks/mobile-nav-button.css" />
+		<link rel="stylesheet" href="./css/blocks/mobile-nav.css" />
+		<!-- Fonts -->
+		<link rel="stylesheet" href="./css/fonts/Georgia/stylesheet.css" />
+		<link rel="stylesheet" href="./css/fonts/Lato/stylesheet.css" />
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+	<style>
+		/* body {
+			font-family: Arial, sans-serif;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+			margin: 0;
+		  } */
+	
+		  #content {
+			text-align: center;
+			
+		  }
+	
+		  #userData {
+			margin-top: 20px;
+			
+		  }
+	
+		  #userData ul {
+			list-style-type: none;
+			padding: 0;
+		  }
+	
+		  #userData li {
+			border: 1px solid #ddd;
+			padding: 10px;
+			margin-bottom: 10px;
+			border-radius: 5px;
+		  }
+	
+		  #userData strong {
+			font-weight: bold;
+		  }
+              .h1{
+			font-family: Arial, sans-serif;
+			font-weight: bold;
+
+		  }
+
+            
+
+		
+
+        img {
+            max-width: 100%; /* Ensure the image doesn't exceed the container's width */
+            max-height: 100%; /* Ensure the image doesn't exceed the container's height */
+            display: block; /* Remove extra space reserved for descender */
+            margin: auto; /* Center the image horizontally */
+             
+	 }
+       #communityInfoContainer {
+    text-align: center; /* Вирівнювання тексту по центру */
+    font-size: 18px; /* Розмір шрифту 18 пікселів (можете вибрати бажаний розмір) */
+    margin-top: 20px; /* Відступ зверху */
+}
+
+
+
+
+
+
+	    </style>
+	</head>
+	<body>
+		<header class="header">
+			<div class="container">
+				<div class="header-row">
+					<div class="header-logo"><img src="./img/logo.svg" alt="Logo" /></div>
+					<nav class="header-nav">
+						<ul>
+							<li><a href="#">Why Alivio</a></li>
+							<li><a href="#">Solutions</a></li>
+							<li><a href="#">Community</a></li>
+							<li><a href="#">Pricing</a></li>
+						</ul>
+					</nav>
+					<div class="header-login">
+						<a class="header-login-link" href="#">Sign in</a>
+						<a href="#" class="btn">Start Trial</a>
+					</div>
+					<button type="button" class="mobile-nav-button">
+						<span class="mobile-nav-button__icon"></span>
+					</button>
+				</div>
+			</div>
+		</header>
+
+		<div class="mobile-nav">
+			<img id="pricingImage" src="./img/prices.png" alt="Description of the image">
+
+			<nav class="mobile-nav-list">
+				<ul>
+					<li><a href="#">Why Alivio</a></li>
+					<li><a href="#">Solutions</a></li>
+					<li><a href="#">Community</a></li>
+					<li><a href="#">Pricing</a></li>
+				</ul>
+			</nav>
+
+			<div class="mobile-login">
+				<a class="" href="#">Sign in</a>
+				<a href="#" class="btn btn-big">Start Trial</a>
+			</div>
+		</div>
+
+		<main>
+			<section class="home">
+				<div class="container">
+					<div class="home-content">
+						<h1 class="home-heading"  id="myh">Be aware, Manage well.</h1>
+						<div class="home-text">
+							<p>
+								Everyone experiences stress in different ways. Let Alivio guide you,
+								in a personalized journal experience, to overcome your stress.
+							</p>
+						</div>
+						<div class="home-btn">
+							<a href="#" class="btn btn-big" id="myBUTTON">Find Your Way</a>
+						</div>
+					</div>
+				</div>
+				<div class="home-bg-img">
+					<img src="./img/home/bg.jpg" alt="Background cover" />
+				</div>
+				
+			</section>
+			<div id="userData">
+				<!-- User data will be displayed here -->
+			  </div>
+			  <img id="pricingImage" src="./img/prices.png" alt="Description of the image">
+			 
+
+			
+
+			  <div id="app">
+				<h1>Total services price</h1>
+				<input v-model="currentExpression" @keyup.enter="calculate" placeholder="Enter expression">
+				<button @click="calculate">Calculate</button>
+				<div>
+				  <p v-for="(result, index) in calculationResults" :key="index">{{ getResultMessage(result) }}</p>
+				</div>
+				<p>Running Total: {{ runningTotal }}</p>
+			    </div>
+			  
+
+
+
+			<section class="how-it-works">
+				<div class="container">
+					<div class="how-it-works-header">
+						<div class="how-it-works-header-head">
+							<h2 class="how-it-works-title">How it works</h2>
+							<h3 class="how-it-works-subtitle">
+								Understand & Release the stress in 3 steps
+							</h3>
+						</div>
+						<div class="how-it-works-header-content">
+							<p>
+								Alivio offers as many journals it takes, tackling different areas
+								such as anxiety, overwhelmedness, sadness, or anger, and a variety
+								of personal causes, to help you become aware of your emotions, and
+								guide you in how to manage stress.
+							</p>
+						</div>
+					</div>
+
+					<div class="how-it-works-steps">
+						<div class="step">
+							<h4 class="step-heading" data-number="01">Personalize</h4>
+
+							<div class="step-text">
+								<p>
+									Answer a quick survey about how you express yourself, what
+									causes you stress, and what area would you like to work on. This
+									way, we can fully personalize your journal!
+								</p>
+							</div>
+
+							<div class="step-img-wrapper">
+								<img
+									class="step-img"
+									src="./img/steps/step-01.jpg"
+									alt="Step Img"
+								/>
+							</div>
+						</div>
+						<!-- //step -->
+
+						<div class="step">
+							<h4 class="step-heading" data-number="02">Write & Understand</h4>
+
+							<div class="step-text">
+								<p>
+									Write, draw, reflect, understand. Alivio will guide you through
+									the prompts and will help you manage your stress!
+								</p>
+							</div>
+
+							<div class="step-img-wrapper">
+								<img
+									class="step-img"
+									src="./img/steps/step-02.jpg"
+									alt="Step Img"
+								/>
+							</div>
+						</div>
+						<!-- //step -->
+
+						<div class="step">
+							<h4 class="step-heading" data-number="03">Alivio!</h4>
+
+							<div class="step-text">
+								<p>
+									Now you are aware, and have a way to manage and overcome your
+									own stress. What are you waiting for? Alivio today!
+								</p>
+							</div>
+
+							<div class="step-img-wrapper">
+								<img
+									class="step-img"
+									src="./img/steps/step-03.jpg"
+									alt="Step Img"
+								/>
+							</div>
+						</div>
+						<!-- //step -->
+					</div>
+				</div>
+			</section>
+
+			<section class="story">
+				<div class="container container-wide">
+					<div class="story-row">
+
+                        <div class="story-content">
+							<h2 class="story-heading">Let's hear about Kayla's success story</h2>
+							<div class="story-text">
+								<p>See how well Alivio works in a real customer’s life.</p>
+							</div>
+							<div class="story-btn">
+								<a href="#" class="btn btn-big">Let’s get started</a>
+							</div>
+						</div>
+
+						<div class="story-video">
+							<div id="video-story-overlay" class="story-video-overlay">
+								<button id="video-story-btn" class="story-video-btn">
+									<img id="video-story-btn-icon" width="82" height="82" src="./img/story/play-white.svg" alt="Play" />
+								</button>
+							</div>
+
+							<!-- <img
+								src="./img/story/video-cover.jpg"
+								alt="Video"
+								class="story-video-object"
+							/> -->
+
+                            <video class="story-video-object" id="video-story">
+                                <source src="./video/customer-story.mp4" type="video/mp4">
+                            </video>
+
+						</div>
+                        <!-- //story-video -->
+					</div>
+				</div>
+			</section>
+
+			<section class="product">
+				<div class="container">
+					<div class="product-row">
+						<div class="product-img-wrapper">
+							<img src="./img/product/photo.jpg" alt="" class="product-img" />
+
+							<div class="product-card">
+								<div class="card">
+									<h3 class="card-title">Customized For</h3>
+
+									<div class="card-avatar">
+										<div class="avatar">
+											<img
+												class="avatar-img"
+												src="./img/product/avatar.jpg"
+												alt="Avatar"
+											/>
+											<h4 class="avatar-name">Mikayla</h4>
+										</div>
+									</div>
+
+									<div class="card-contents">
+										<h3 class="card-contents-title">Your custom contents</h3>
+										<ul>
+											<li>Understand Your Stress</li>
+											<li>Anger Management</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="product-content">
+							<h2 class="product-content-title">Our product</h2>
+							<h3 class="product-content-subtitle">
+								You tell us your stress, We make your diary
+							</h3>
+
+							<div class="product-content-text">
+								<p>
+									Everyone experiences it, and in different ways. Let Alivio guide
+									you, in a personalized journal experience, to overcome your
+									stress.
+								</p>
+							</div>
+							<div class="product-content-btn">
+								<a href="#" class="btn btn-big">Find Your Way</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+	 <!-- Заголовок та кнопка -->
+	
+	 
+	 <!-- Ділова частина для відображення відповіді -->
+	
+		<footer class="footer">
+			<div class="container">
+				<div class="footer-content">
+					<img class="footer-logo" src="./img/footer-logo.svg" alt="Logo" />
+					<nav class="footer-nav">
+						<ul>
+
+						    <li><a href="#">Why Alivio</a></li>
+						    <li><a href="#">Solutions</a></li>
+						    <li><a href="#" id="communityButton">Community</a></li>
+						    <div id="communityInfoContainer"></div>
+
+
+						    <li><a href="#" class="pricing-link">Pricing</a></li>
+						</ul>
+						
+
+					  </nav>
+  
+						  <!-- HTML for the modal window -->
+						  <script>
+							$(document).ready(function () {
+							    // Add a click event handler to the "Community" link
+							    $('#communityButton').click(function (event) {
+								  // Prevent the default behavior of the link (e.g., navigating to a new page)
+								  event.preventDefault();
+						  
+								  // Clear the existing content in the communityInfoContainer
+								  $('#communityInfoContainer').empty();
+						  
+								  // Add community information to the container
+								  var communityInfo = '<p>Address: Lviv,Zelena 15</p>';
+								  communityInfo += '<p>Phone Number: +38 (012) 34 56 789</p>';
+								  $('#communityInfoContainer').html(communityInfo);
+							    });
+							});
+						  </script>
+						  
+						 
+						</ul>
+					  </nav>
+				</div>
+			</div>
+			<!-- <div id="responseDiv"></div> -->
+			
+		</footer>
+		
+		<script>
+
+
+
+
+
+
+
+
+
+
+
+
+			$(document).ready(function () {
+			    // Add a click event handler to the "Community" link
+			    $('#communityButton').click(function (event) {
+				  // Prevent the default behavior of the link (e.g., navigating to a new page)
+				  event.preventDefault();
+		  
+				  // Clear the existing content in the communityInfoContainer
+				  $('#communityInfoContainer').empty();
+		  
+				  // Add community information to the container
+				  var communityInfo = '<p>Address: Lviv,Zelena 15</p>';
+				  communityInfo += '<p>Phone Number: +38 (012) 34 56 789</p>';
+				  $('#communityInfoContainer').html(communityInfo);
+			    });
+			});
+		  </script>
+
+		<script>
+			$(document).ready(function () {
+			    // Add a click event handler to the "Pricing" link
+			    $('.pricing-link').click(function (event) {
+				  // Prevent the default behavior of the link (e.g., navigating to a new page)
+				  event.preventDefault();
+		  
+				  // Scroll to the pricingImage element with a smooth animation
+				  $('html, body').animate({
+					scrollTop: $('#pricingImage').offset().top
+				  }, 1000); // Adjust the duration (in milliseconds) as needed
+			    });
+			});
+		  </script>
+		
+
+		<!-- <script>
+		    $(document).ready(function() {
+			  // Add a click event handler to the "Find Your Way" button
+			  $('#findYourWayBtn').click(function() {
+				// Make an AJAX request
+				$.ajax({
+				    url: 'https://api.github.com/repos/torvalds/linux', 
+				    method: 'GET',
+				    success: function(data) {
+					  // Display the response data on the page
+					  $('#responseDiv').html('<img src="' + data.message + '" alt="Random Dog">');
+				    },
+				    error: function(error) {
+					  console.error('Error:', error);
+				    }
+				});
+			  });
+		    });
+		</script> -->
+		<script src="./js/main.js"></script>
+		<script src="./js/ajax.js"></script>
+		<script src="./js/jquery-3.7.1.min.js"></script>
+		<script src="./js/jquery.js"></script>
+		
+		<script>
+
+
+$('.header-nav ul li a').click(function (e) {
+        e.preventDefault(); // Prevent default link behavior
+        var targetId = $(this).attr('href'); // Get the target element's ID from the href attribute
+        var targetElement = $(targetId); // Select the target element using jQuery
+        $('html, body').animate({
+            scrollTop: targetElement.offset().top - $('.header').outerHeight() // Scroll to the target element with a smooth animation
+        }, 1000);
+    });
+
+    // jQuery code for handling the mobile navigation button click
+    $('.mobile-nav-button').click(function () {
+        $('.mobile-nav').toggleClass('open'); // Toggle the 'open' class to show/hide the mobile navigation
+    });
+
+			$(document).ready(function () {
+			    // Add a click event handler to the "Find Your Way" button
+			    $('#myBUTTON').click(function () {
+				  // Make an AJAX request to your new URL
+				  $.ajax({
+					url: 'https://jsonplaceholder.typicode.com/users',
+					method: 'GET',
+					success: function (data) {
+					    // Log the response to the console
+					    console.log('Response:', data);
+		  
+					    // Check if the response contains the expected data
+					    if (data && Array.isArray(data)) {
+						  // Format and display user data on the page
+						  var formattedUserData = formatUserData(data);
+						  $('#userData').html(formattedUserData);
+					    } else {
+						  // Handle the case where the response is not as expected
+						  $('#userData').html('<p>No data found</p>');
+					    }
+					},
+					error: function (error) {
+					    console.error('Error:', error);
+					    $('#userData').html('<p>Error fetching data</p>');
+					},
+				  });
+			    });
+		  
+			    // Function to format user data as HTML
+			    function formatUserData(userData) {
+				  var html = '<ul>';
+				  userData.forEach(function (user) {
+					html += '<h1>CHOOSE YOUR MENTOR </h1>'
+					html += '<li>';
+					html += '<strong>ID:</strong> ' + user.id + '<br>';
+					html += '<strong>Name:</strong> ' + user.name + '<br>';
+					html += '<strong>Username:</strong> ' + user.username + '<br>';
+					html += '<strong>Email:</strong> ' + user.email;
+					html += '</li>';
+				  });
+				  html += '</ul>';
+				  return html;
+			    }
+			});
+		  </script>		
+		  
+		  
+		  <script>
+			const app = Vue.createApp({
+			  data() {
+			    return {
+				currentExpression: '',
+				calculationResults: [],
+				runningTotal: 0,
+			    };
+			  },
+			  methods: {
+			    calculate() {
+				try {
+				  const result = eval(this.currentExpression);
+				  this.calculationResults.push(result);
+				  if (typeof result === 'number') {
+				    this.runningTotal += result;
+				  }
+				} catch (error) {
+				  this.calculationResults.push('Error');
+				}
+				this.currentExpression = '';
+			    },
+			    getResultMessage(result) {
+				if (typeof result === 'number') {
+				  return result;
+				} else if (typeof result === 'string') {
+				  return 'Invalid expression';
+				} else {
+				  return 'Error';
+				}
+			    },
+			  },
+			});
+			
+			app.mount('#app');
+
+
+
+
+
+			
+
+
+
+
+
+			</script>
+	</body>
+</html>
+
+
+
+
+
+
+
